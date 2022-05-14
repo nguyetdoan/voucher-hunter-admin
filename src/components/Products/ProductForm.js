@@ -87,8 +87,8 @@ const ProductForm = () => {
         </Upload>
       </Form.Item>
       <Form.Item
-        label="Amount"
-        name="amount"
+        label="Stock"
+        name="stock"
         rules={[
           {
             required: true,

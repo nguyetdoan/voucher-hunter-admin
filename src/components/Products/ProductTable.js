@@ -41,12 +41,12 @@ const columns = [
     },
   },
   {
-    title: "Amount",
-    dataIndex: "amount",
+    title: "Stock",
+    dataIndex: "stock",
     key: "3",
     width: 120,
     sorter: {
-      compare: (a, b) => a.amount - b.amount,
+      compare: (a, b) => a.stock - b.stock,
       multiple: 3,
     },
   },
@@ -87,7 +87,7 @@ for (let i = 0; i < 100; i++) {
     title: "Tien Giang",
     price: 300,
     discount: i * 10,
-    amount: 3,
+    stock: 30,
     image: {
       url: "https://sanvemaybay.vn/includes/uploads/2018/09/thanh-pho-Tien-Giang-ve-dem-e1536820106695.jpg",
     },
