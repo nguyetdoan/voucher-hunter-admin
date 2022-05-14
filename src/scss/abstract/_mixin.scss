@@ -1,0 +1,39 @@
+@mixin custom-media($breakpoint) {
+  @if $breakpoint==desktop-larger {
+    @media only screen and (max-width: 1920px) {
+      @content;
+    }
+  } @else if $breakpoint==desktop-large {
+    @media only screen and (max-width: 1440px) {
+      @content;
+    }
+  } @else if $breakpoint==desktop {
+    @media only screen and (max-width: 1280px) {
+      @content;
+    }
+  } @else if $breakpoint==tablet-larger {
+    @media only screen and (max-width: 1024px) {
+      @content;
+    }
+  } @else if $breakpoint==tablet-large {
+    @media only screen and (max-width: 992px) {
+      @content;
+    }
+  } @else if $breakpoint==tablet {
+    @media only screen and (max-width: 768px) {
+      @content;
+    }
+  } @else if $breakpoint==mobile {
+    @media only screen and (max-width: 576px) {
+      @content;
+    }
+  } @else if $breakpoint==small-mobile {
+    @media only screen and (max-width: 384px) {
+      @content;
+    }
+  } @else {
+    @media only screen and (max-width: $breakpoint) {
+      @content;
+    }
+  }
+}

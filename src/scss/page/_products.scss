@@ -1,0 +1,86 @@
+.product {
+  &-table {
+    margin: 32px;
+
+    .ant-table-thead > tr > th {
+      background: $secondary;
+      font-weight: 600;
+    }
+
+    td {
+      padding-top: 12px;
+      padding-bottom: 12px;
+
+      img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+      }
+
+      .btn {
+        padding: 4px;
+
+        &:hover {
+          color: $primary;
+        }
+      }
+    }
+  }
+}
+
+table {
+  .product-img {
+    width: 100%;
+  }
+}
+
+.ant-pagination-item-active,
+.ant-pagination-item:hover,
+.ant-pagination-item-active:hover {
+  border-color: $primary;
+}
+
+.product-navigation {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+
+  a {
+    text-decoration: none;
+    color: gray;
+    padding: 8px 16px;
+    border-radius: 4px;
+
+    &[aria-current="page"] {
+      background-color: $primary;
+      color: black;
+    }
+  }
+}
+
+.submit-btn label::after {
+  display: none;
+}
+
+.product-form {
+  padding: 40px 32px;
+  background-color: #fff;
+  border-radius: 3px;
+  border: 1px solid #f7f7f7;
+  width: fit-content;
+  margin: 30px auto;
+
+  .ant-row {
+    display: block;
+    width: 600px;
+    margin: 24px auto 0;
+  }
+
+  .ant-form-item-control {
+    max-width: 100%;
+  }
+
+  .ant-form-item-label {
+    max-width: 100%;
+  }
+}

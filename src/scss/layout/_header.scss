@@ -1,0 +1,173 @@
+nav {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  justify-items: start;
+  gap: 32px;
+  box-shadow: 0 0.052083333in 11.25pt -9px rgba(0, 0, 0, 0.1);
+  height: 60px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  z-index: 999;
+
+  @include custom-media(tablet) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    @include custom-media(tablet-large) {
+      gap: 0;
+    }
+
+    .collapse-menu-btn {
+      width: 60px;
+      height: 60px;
+      display: grid;
+      place-items: center;
+      border-radius: 0;
+      padding: 0;
+
+      &:focus {
+        box-shadow: none;
+      }
+
+      i {
+        font-size: 24px;
+        font-weight: bold;
+        padding: 8px;
+      }
+
+      @include custom-media(tablet-large) {
+        &.btn-primary {
+          background: unset;
+          border: 0;
+        }
+
+        color: $primary !important;
+
+        i {
+          font-size: 14px;
+        }
+      }
+    }
+
+    .logo-container {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      img {
+        width: 40px;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      span {
+        font-size: 32px;
+        @include custom-media(tablet-large) {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+
+  .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 50%;
+    background-color: #f7f7f7;
+    flex-grow: 1;
+    flex-shrink: 0;
+    padding: 8px 16px;
+    border-radius: 4px;
+
+    input.form-control {
+      padding: 0 8px;
+      border: 0;
+      background: none;
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+
+    @include custom-media(tablet-large) {
+      width: 100%;
+    }
+
+    @include custom-media(tablet) {
+      display: none;
+    }
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding-right: 24px;
+    justify-self: end;
+
+    @include custom-media(tablet) {
+      .btn {
+        display: none;
+      }
+    }
+
+    @include custom-media(mobile) {
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    &__message,
+    &__notification {
+      position: relative;
+      .amount {
+        position: absolute;
+        top: -8px;
+        right: -10px;
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background-color: $primary;
+        color: #fff;
+      }
+    }
+
+    i {
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .profile {
+      position: relative;
+    }
+
+    .avt-container {
+      height: 40px;
+      width: 40px;
+      overflow: hidden;
+      border-radius: 50%;
+      flex-shrink: 0;
+      border: 1px solid white;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}

@@ -1,0 +1,68 @@
+.side-bar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  bottom: 0;
+  overflow-y: hidden;
+  padding: 0;
+  width: 240px;
+  overflow-x: hidden;
+  transition: width 0.4s ease-in-out;
+  background-color: #fff;
+  box-shadow: 0 0.052083333in 11.25pt -9px rgba(0, 0, 0, 0.1);
+  margin: 0;
+  z-index: 1000;
+
+  &:hover {
+    overflow-y: auto;
+  }
+
+  &.collapse-menu {
+    width: 60px;
+
+    ~ .wrapper {
+      margin-left: 60px;
+    }
+
+    @include custom-media(tablet-large) {
+      width: 0;
+
+      ~ .wrapper {
+        margin-left: 0;
+      }
+    }
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #555;
+    font-weight: bold;
+    background-color: #fff;
+    white-space: nowrap;
+
+    &[aria-current="page"] {
+      color: $primary;
+      background-color: #ffecec;
+    }
+
+    .icon {
+      width: 60px;
+      height: 60px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+
+      i {
+        font-size: 20px;
+      }
+    }
+  }
+
+  li:last-child {
+    a {
+      border-top: 1px solid lightgray;
+    }
+  }
+}

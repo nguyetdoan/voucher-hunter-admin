@@ -1,0 +1,48 @@
+.message-pop-up {
+  position: absolute;
+  right: 0;
+  top: 47px;
+  background-color: #fff;
+  width: 300px;
+  transform: scaleY(0);
+  transition: transform 0.25s ease-in-out;
+  transform-origin: top;
+
+  &.show {
+    transform: scaleY(1);
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 0;
+
+    li {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      justify-items: start;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-bottom: 1px solid #f7f7f7;
+
+      p {
+        margin-bottom: 0 !important;
+
+        &.time {
+          font-size: 14px;
+          color: lightgrey;
+        }
+      }
+
+      &:hover {
+        background-color: #f2f2f2;
+      }
+    }
+  }
+
+  .btn {
+    display: block;
+    width: 100%;
+    border-radius: 0;
+  }
+}
