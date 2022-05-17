@@ -33,6 +33,20 @@
     }
   }
 
+  @include custom-media(tablet-large) {
+    & ~ .page-wrapper {
+      margin-left: 0;
+    }
+
+    & {
+      width: 0;
+    }
+
+    &.show-menu {
+      width: 240px;
+    }
+  }
+
   a {
     display: flex;
     align-items: center;

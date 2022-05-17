@@ -8,6 +8,10 @@
   transition: transform 0.25s ease-in-out;
   transform-origin: top;
 
+  @include custom-media(tablet) {
+    width: 250px;
+  }
+
   &.show {
     transform: scaleY(1);
   }
