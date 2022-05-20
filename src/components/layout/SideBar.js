@@ -5,10 +5,8 @@ import { UilApps } from "@iconscout/react-unicons";
 import { UilCog } from "@iconscout/react-unicons";
 
 const SideBar = () => {
-  const { isShowedMenu } = useSelector((state) => state.ui);
-
   return (
-    <ul className={`side-bar${!isShowedMenu ? " collapse-menu" : ""}`}>
+    <ul className="side-bar">
       <li>
         <NavLink to="/">
           <div className="icon">

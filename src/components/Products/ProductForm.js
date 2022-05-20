@@ -11,7 +11,15 @@ const normFile = (e) => {
 const ProductForm = () => {
   return (
     <Form
-      onFinish={(values) => console.log(values)}
+      onFinish={(values) =>
+        console.log(
+          {
+            ...values,
+            upload: values.upload.map((item) => item.thumbUrl),
+          },
+          values.upload[0].thumbUrl
+        )
+      }
       labelCol={{
         span: 4,
       }}

@@ -48,7 +48,7 @@ const Header = () => {
   }, [dispatch]);
 
   const toggleMenu = () => {
-    if (window.innerWidth < 992) {
+    if (window.innerWidth <= 992) {
       document.querySelector(".side-bar").classList.toggle("show-menu");
     } else
       document.querySelector(".side-bar").classList.toggle("collapse-menu");
