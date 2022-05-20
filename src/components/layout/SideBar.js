@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { UilApps } from "@iconscout/react-unicons";
 import { UilCog } from "@iconscout/react-unicons";
 
