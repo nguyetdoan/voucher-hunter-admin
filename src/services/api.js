@@ -21,6 +21,61 @@ const API = {
 
     return response.data;
   },
+  async loadProduct(page = 1, size, sort, order, search, gte, lte) {
+    const response = await axios.get(
+      `${baseURL}/product?page=${page}${size ? `&size=${size}` : ""}${
+        sort ? `&sort=${sort}` : ""
+      }${order ? `&order=${order}` : ""}${search ? `&search=${search}` : ""}${
+        gte ? `&gte=${gte}` : ""
+      }${lte ? `&size=${lte}` : ""}`
+    );
+
+    if (response.status !== 200) {
+      throw new Error(response.data.msg);
+    }
+
+    return response.data;
+  },
+  async loadProductDetail(id) {
+    const response = await axios.get(`${baseURL}/product/${id}`);
+
+    if (response.status !== 200) {
+      throw new Error(response.data.msg);
+    }
+
+    return response.data;
+  },
+  async addProduct(productInfo) {
+    console.log(productInfo);
+    const response = await axios.post(`${baseURL}/product`, productInfo);
+
+    if (response.status !== 200) {
+      throw new Error(response.data.msg);
+    }
+
+    return response.data;
+  },
+  async updateProductDetail(updateInfo) {
+    const response = await axios.put(
+      `${baseURL}/product/${updateInfo.id}`,
+      updateInfo
+    );
+
+    if (response.status !== 200) {
+      throw new Error(response.data.msg);
+    }
+
+    return response.data;
+  },
+  async deleteProductDetail(id) {
+    const response = await axios.delete(`${baseURL}/product/${id}`);
+
+    if (response.status !== 200) {
+      throw new Error(response.data.msg);
+    }
+
+    return response.data;
+  },
 };
 
 export default API;

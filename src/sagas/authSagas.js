@@ -10,8 +10,8 @@ function* loginWork({ payload: userInfo }) {
     localStorage.token = token;
     yield put(authActions.loadUser());
   } catch (err) {
-    yield put(authActions.loginFailed(err.message));
-    console.log(err.message);
+    yield put(authActions.loginFailed(err.response.data.msg));
+    console.log(err.response.data.msg);
   }
 }
 
@@ -32,7 +32,7 @@ function* loadUserWork() {
       yield put(authActions.loadUserFailed());
     }
   } catch (err) {
-    yield put(authActions.loadUserFailed());
+    yield put(authActions.loadUserFailed(err.response.data.msg));
     console.log(err.response.data.msg);
   }
 }

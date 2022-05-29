@@ -1,5 +1,7 @@
+import { DatePicker, Form, Input, InputNumber, Upload } from "antd";
 import React from "react";
-import { Form, Input, DatePicker, InputNumber, Upload } from "antd";
+import { useDispatch } from "react-redux";
+import productActions from "../../actions/productAction";
 
 const normFile = (e) => {
   if (Array.isArray(e)) {
@@ -9,17 +11,21 @@ const normFile = (e) => {
 };
 
 const ProductForm = () => {
+  const dispatch = useDispatch();
+
+  const handleSubmit = (values) => {
+    const productInfo = {
+      ...values,
+      images: values.upload.map((item) => item.thumbUrl),
+    };
+    delete productInfo.upload;
+
+    dispatch(productActions.addProduct(productInfo));
+  };
+
   return (
     <Form
-      onFinish={(values) =>
-        console.log(
-          {
-            ...values,
-            upload: values.upload.map((item) => item.thumbUrl),
-          },
-          values.upload[0].thumbUrl
-        )
-      }
+      onFinish={handleSubmit}
       labelCol={{
         span: 4,
       }}
@@ -31,8 +37,8 @@ const ProductForm = () => {
       className="product-form"
     >
       <Form.Item
-        name="title"
-        label="Product title"
+        name="name"
+        label="Product name"
         rules={[
           {
             required: true,
@@ -132,11 +138,7 @@ const ProductForm = () => {
       </Form.Item>
 
       <Form.Item label=" " className="submit-btn">
-        <button
-          type="primary"
-          htmlType="submit"
-          className="btn btn-primary text-white"
-        >
+        <button htmlType="submit" className="btn btn-primary text-white">
           Submit
         </button>
       </Form.Item>
