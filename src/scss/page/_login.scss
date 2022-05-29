@@ -2,10 +2,40 @@
   min-height: 100vh;
   position: relative;
 
+  .form-control:focus {
+    box-shadow: none !important;
+    border-color: #333 !important;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: url("https://gambolthemes.net/html-items/cursus_main_demo/images/sign.svg");
+    opacity: 0.04;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: #f7f7f7;
+    z-index: -1;
+  }
+
   .sign-up__container {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    > p {
+      font-size: 14px;
+      font-weight: 400;
+      color: #686f7a;
+      margin-bottom: 47px;
+      line-height: 26px;
+    }
   }
 
   .logo-container {
@@ -21,189 +51,203 @@
 
   .sign-up-form {
     width: 90%;
-    padding: 50px 50px 30px;
-    box-shadow: -0.083333333in 0.5pc 1.125pc -7px rgba(25, 42, 70, 0.13);
+    padding: 50px 24px 30px;
+    box-shadow: -0.083333333in 0.5pc 1.125pc -7px rgba(25, 42, 70, 13%);
     background-color: #fff;
-  }
 
-  @media (min-width: 992px) {
-    .sign-up-form {
-      width: calc(50% - 30px);
-      padding: 50px 50px 30px;
+    .title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 17px;
     }
-  }
 
-  .title {
-    font-size: 24px;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 17px;
-  }
+    @media (min-width: 768px) {
+      width: calc(50% - 30px);
+      padding: 50px 32px 30px;
+    }
 
-  .sign-up-form > p:nth-child(2) {
-    font-size: 14px;
-    margin-bottom: 47px;
-    font-weight: 400;
-    color: #686f7a;
-    text-align: center;
-    line-height: 26px;
-  }
+    > p:nth-child(2) {
+      font-size: 14px;
+      margin-bottom: 47px;
+      font-weight: 400;
+      color: #686f7a;
+      text-align: center;
+      line-height: 26px;
+    }
 
-  .input-field {
-    position: relative;
-  }
+    .input-field {
+      position: relative;
+      margin-bottom: 28px;
 
-  .input-field:not(:first-of-type) {
-    margin-top: 15px;
-  }
+      &:nth-of-type(3) {
+        margin-bottom: 40px;
+      }
 
-  .input-field input:focus {
-    box-shadow: none;
-  }
+      &:not(:first-of-type) {
+        margin-top: 15px;
+      }
 
-  .input-field input {
-    border-color: #c7c7c7;
-    font-size: 14px;
-    padding-right: 2em;
-    padding-left: 2em;
-    color: #333;
-    height: 40px;
-  }
+      &input:focus {
+        box-shadow: none !important;
+      }
 
-  .input-field input::placeholder {
-    color: #c7c7c7;
-  }
+      input {
+        border-color: #c7c7c7;
+        font-size: 14px;
+        padding-right: 2em;
+        padding-left: 2em;
+        color: #333;
+        height: 40px;
 
-  .input-field input:focus::placeholder {
-    color: #333;
-  }
+        &::placeholder {
+          color: #c7c7c7;
+        }
 
-  .error-msg {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 2em;
-    font-size: 20px;
-    color: #ed2926;
-  }
+        &:focus::placeholder {
+          color: #333;
+        }
+      }
+    }
 
-  .error-msg ~ input,
-  .error-msg ~ input:focus {
-    border: 1px solid #ed2926;
-  }
+    .error-msg {
+      position: absolute;
+      top: 20px;
+      transform: translateY(-50%);
+      right: 2em;
+      color: $primary;
+      font-size: 14px;
+      font-weight: 400;
+      margin-bottom: 0;
+    }
 
-  /* The container */
-  .checkbox {
-    display: block;
-    position: relative;
-    padding-left: 24px;
-    margin-top: 30px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 14px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
+    .error-txt {
+      position: absolute;
+      left: 0;
+      top: 100%;
+      color: #ed2926;
+      font-size: 14px;
+      font-weight: 400;
+    }
 
-  /* Hide the browser's default checkbox */
-  .checkbox input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-  }
+    .error-msg ~ input,
+    .error-msg ~ input:focus {
+      border: 1px solid #ed2926;
+    }
 
-  /* Create a custom checkbox */
-  .checkmark {
-    position: absolute;
-    top: 2px;
-    left: 0;
-    height: 18px;
-    width: 18px;
-    border-radius: 50%;
-    border: 1px solid #c7c7c7;
-  }
+    /* The container */
+    .checkbox {
+      display: block;
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 14px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
 
-  /* When the checkbox is checked, add a blue background */
-  .checkbox input:checked ~ .checkmark {
-    border: 1px solid #ed2926;
-  }
+    /* Hide the browser's default checkbox */
+    .checkbox input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
 
-  /* Create the checkmark/indicator (hidden when not checked) */
-  .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-  }
+    /* Create a custom checkbox */
+    .checkmark {
+      position: absolute;
+      top: 2px;
+      left: 0;
+      height: 18px;
+      width: 18px;
+      border-radius: 50%;
+      border: 1px solid #c7c7c7;
+    }
 
-  /* Show the checkmark when checked */
-  .checkbox input:checked ~ .checkmark:after {
-    display: block;
-  }
+    /* When the checkbox is checked, add a blue background */
+    .checkbox input:checked ~ .checkmark {
+      border: 1px solid #ed2926;
+    }
 
-  /* Style the checkmark/indicator */
-  .checkbox .checkmark:after {
-    left: 6px;
-    top: 3px;
-    width: 4px;
-    height: 8px;
-    border: solid #ed2926;
-    border-width: 0 2px 2px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
 
-  .submit-btn {
-    font-size: 14px;
-    margin-top: 30px;
-    font-weight: 500;
-    color: #fff;
-    background: #ed2a26;
-    border-radius: 3px;
-    text-align: center;
-    border: 0;
-    width: 100%;
-    height: 40px;
-  }
+    /* Show the checkmark when checked */
+    .checkbox input:checked ~ .checkmark:after {
+      display: block;
+    }
 
-  .submit-btn:hover {
-    color: #fff;
-    background: #000;
-  }
+    /* Style the checkmark/indicator */
+    .checkbox .checkmark:after {
+      left: 6px;
+      top: 3px;
+      width: 4px;
+      height: 8px;
+      border: solid #ed2926;
+      border-width: 0 2px 2px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
 
-  .sign-up__container p {
-    font-size: 14px;
-    font-weight: 400;
-    color: #686f7a;
-    margin-bottom: 47px;
-    line-height: 26px;
-  }
+    .submit-btn {
+      font-size: 14px;
+      margin-top: 30px;
+      font-weight: 500;
+      color: #fff;
+      background: #ed2a26;
+      border-radius: 3px;
+      text-align: center;
+      border: 0;
+      width: 100%;
+      height: 40px;
+    }
 
-  .sign-up__container p:nth-last-child(2) {
-    padding: 47px 0 30px;
-    margin-bottom: 0 !important;
-    border-bottom: 1px solid #efefef;
-  }
+    .submit-btn:hover {
+      color: #fff;
+      background: #000;
+    }
 
-  .sign-up-form > p:nth-last-child(2) span {
-    color: #ed2a26;
-    cursor: pointer;
-  }
+    .policy-txt {
+      padding: 47px 0 30px;
+      margin-bottom: 0 !important;
+      border-bottom: 1px solid #efefef;
+    }
 
-  .sign-up-form > p:nth-last-child(2) span:hover {
-    text-decoration: underline;
-    color: #333;
-  }
+    .policy-txt span {
+      color: #ed2a26;
+      cursor: pointer;
+    }
 
-  .sign-up-form > p:last-child {
-    margin-top: 30px;
-    margin-bottom: 0;
-    color: $primary;
-    cursor: pointer;
+    .policy-txt span:hover {
+      text-decoration: underline;
+      color: #333;
+    }
+
+    > p:last-child {
+      margin-top: 30px;
+      margin-bottom: 0;
+    }
+
+    > p:last-child span {
+      margin-top: 30px;
+      margin-bottom: 0;
+      color: #4183c4;
+      cursor: pointer;
+    }
+
+    > p:last-child span:hover {
+      color: #686f7a;
+    }
   }
 
   .sign-footer {
@@ -217,26 +261,6 @@
   }
 
   .sign-footer img {
-    width: 64px;
-    height: 64px;
-    object-fit: cover;
     margin-right: 8px;
   }
-}
-
-.sign-up-bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-image: url("../../../public/images/background.svg");
-  opacity: 0.04;
-}
-
-.sign-up-bg::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-color: #f7f7f7;
-  z-index: -1;
 }

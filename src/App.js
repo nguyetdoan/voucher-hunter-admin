@@ -1,22 +1,36 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import ProductPage from "./pages/ProductPage";
-import CreateProductPage from "./pages/CreatProductPage";
-import LoginPage from "./pages/LoginPage";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import authActions from "./actions/authActions";
 import Layout from "./components/layout";
+import LoginPage from "./pages/LoginPage";
+import { adminRoute } from "./routes";
 
 function App() {
+  const { user, loading } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(authActions.loadUser());
+  }, [dispatch]);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="" element={<HomePage />} />
-          <Route path="products" element={<ProductPage />} />
-          <Route path="create_product" element={<CreateProductPage />} />
-          <Route path="*" element={<></>} />
-        </Route>
-
+        {user && (
+          <Route path="/" element={<Layout />}>
+            {adminRoute.map((route) => (
+              <Route path={route.path} element={<route.component />} />
+            ))}
+          </Route>
+        )}
         <Route path="/login" element={<LoginPage />} />
+        {!user && <Route path="*" element={<LoginPage />} />}
+        {user && <Route path="*" element={<>Not found</>} />}
       </Routes>
     </BrowserRouter>
   );

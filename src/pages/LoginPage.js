@@ -1,18 +1,13 @@
-import React from "react";
 import { Field, Form, Formik } from "formik";
-import * as Yup from "yup";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { BiErrorCircle } from "react-icons/bi";
+import * as Yup from "yup";
+import authActions from "../actions/authActions";
 
 const LoginSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Required"),
-  password: Yup.string()
-    .required("Required")
-    .min(8, "Password is too short - should be 8 chars minimum.")
-    .matches(
-      /[a-z][A-Z][0-9]/,
-      "Password should contains at least one uppercase, one lowercase and a number in it"
-    ),
+  email: Yup.string().email("Invalid email!").required("Email is required!"),
+  password: Yup.string().required("Password is required!"),
 });
 
 const initialValues = {
@@ -23,8 +18,12 @@ const initialValues = {
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleSubmit = (values) => {
-    console.log(values);
+    const { email, password } = values;
+
+    dispatch(authActions.login({ email, password }));
   };
 
   return (
@@ -32,11 +31,11 @@ const Login = () => {
       <div className="container text-center">
         <div className="sign-up__container">
           <div className="logo-container">
-            <img src="images/logo.png" alt="logo" />
+            <img src="image/logo.png" alt="logo" />
           </div>
           <div className="sign-up-form">
             <h2 className="title">Welcome Back</h2>
-            <p>Log In to Your Account!</p>
+            <p>Log Into Your Account!</p>
             <Formik
               initialValues={initialValues}
               onSubmit={handleSubmit}
@@ -46,7 +45,7 @@ const Login = () => {
                 <Form className="text-start">
                   <div className="input-field">
                     {errors.email && touched.email ? (
-                      <BiErrorCircle className="error-msg" />
+                      <div className="error-msg"></div>
                     ) : null}
                     <Field
                       type="email"
@@ -54,10 +53,13 @@ const Login = () => {
                       placeholder="Email Address"
                       className="form-control"
                     />
+                    {errors.email && touched.email && (
+                      <p className="error-txt">{errors.email}</p>
+                    )}
                   </div>
                   <div className="input-field">
                     {errors.password && touched.password ? (
-                      <BiErrorCircle className="error-msg" />
+                      <div className="error-msg"></div>
                     ) : null}
                     <Field
                       type="password"
@@ -65,26 +67,37 @@ const Login = () => {
                       placeholder="Password"
                       className="form-control"
                     />
+                    {errors.password && touched.password && (
+                      <p className="error-txt">{errors.password}</p>
+                    )}
                   </div>
-                  <label className="checkbox">
-                    Remember me
-                    <Field type="checkbox" name="remember" />
-                    <span className="checkmark"></span>
-                  </label>
+                  <div className="mt-4">
+                    <label className="checkbox">
+                      Remember me
+                      <Field type="checkbox" name="remember" />
+                      <span className="checkmark"></span>
+                    </label>
+                  </div>
                   <button
-                    className="btn text-center w-100 submit-btn"
+                    className={`btn text-center w-100 submit-btn`}
                     type="submit"
                   >
-                    Sign in
+                    Log in
                   </button>
                 </Form>
               )}
             </Formik>
-            <p className="forgot-pw">Forgot your password?</p>
+            <p className="policy-txt">
+              Or
+              <span onClick={() => navigate("/forgot-password")}>
+                {" "}
+                Forgot your password
+              </span>
+            </p>
           </div>
         </div>
         <p className="sign-footer">
-          <img src="images/logo.png" alt="" /> © 2020{" "}
+          <img src="images/sign_logo.png" alt="" />© 2022{" "}
           <span className="fw-bold">Cursus</span>. All Rights Reserved.
         </p>
       </div>

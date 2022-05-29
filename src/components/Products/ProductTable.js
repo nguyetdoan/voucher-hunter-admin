@@ -4,12 +4,12 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 
 const columns = [
   {
-    title: "Title",
+    title: "Name",
     width: 100,
-    dataIndex: "title",
-    key: "title",
+    dataIndex: "name",
+    key: "name",
     sorter: {
-      compare: (a, b) => a.title - b.title,
+      compare: (a, b) => a.name - b.name,
       multiple: 3,
     },
   },
@@ -84,7 +84,7 @@ const data = [];
 for (let i = 0; i < 100; i++) {
   data.push({
     key: i,
-    title: "Tien Giang",
+    name: "Tien Giang",
     price: 300,
     discount: i * 10,
     stock: 30,
@@ -93,9 +93,6 @@ for (let i = 0; i < 100; i++) {
     },
     startDate: new Date("2021-5-7").toISOString(),
     endDate: new Date().toISOString(),
-    name: `Edrward ${i}`,
-    age: 32,
-    address: `London Park no. ${i}`,
     category: Math.random() * 5 > 2 ? "Travel" : "Comestic",
   });
 }

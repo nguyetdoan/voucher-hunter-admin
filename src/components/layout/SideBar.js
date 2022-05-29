@@ -1,7 +1,6 @@
+import { UilApps, UilCog } from "@iconscout/react-unicons";
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { UilApps } from "@iconscout/react-unicons";
-import { UilCog } from "@iconscout/react-unicons";
 
 const SideBar = () => {
   return (
@@ -17,7 +16,7 @@ const SideBar = () => {
       <li>
         <NavLink to="/products">
           <div className="icon">
-            <i class="bi bi-list-columns-reverse"></i>
+            <i className="bi bi-list-columns-reverse"></i>
           </div>
           Products
         </NavLink>
