@@ -1,9 +1,9 @@
 import {
+  CLOSE_POP_UP,
   TOGGLE_MENU,
   TOGGLE_MESSAGE,
   TOGGLE_NOTIFICATION,
   TOGGLE_PROFILE,
-  CLOSE_POP_UP,
 } from "../actions/actionType";
 
 const intitalState = {

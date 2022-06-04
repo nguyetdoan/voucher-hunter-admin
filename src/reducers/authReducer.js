@@ -1,5 +1,6 @@
 import {
   GET_USER,
+  LOAD_USER_FAIL,
   LOG_IN_FAILED,
   LOG_OUT,
   NOT_LOADED_YET,
@@ -30,6 +31,14 @@ const authReducer = (state = inititalState, action) => {
         ...state,
         user: null,
         loading: false,
+      };
+
+    case LOAD_USER_FAIL:
+      return {
+        ...state,
+        user: null,
+        loading: false,
+        error: action.payload,
       };
 
     case GET_USER:

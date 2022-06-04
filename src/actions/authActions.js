@@ -1,6 +1,7 @@
 import {
   GET_USER,
   LOAD_USER,
+  LOAD_USER_FAIL,
   LOG_IN,
   LOG_IN_FAILED,
   LOG_OUT,
@@ -32,9 +33,14 @@ const authActions = {
       payload: err,
     };
   },
-  loadUserFailed(err) {
+  notLoadedYet() {
     return {
       type: NOT_LOADED_YET,
+    };
+  },
+  loadUserFailed(err) {
+    return {
+      type: LOAD_USER_FAIL,
       payload: err,
     };
   },

@@ -10,8 +10,8 @@ function* loginWork({ payload: userInfo }) {
     localStorage.token = token;
     yield put(authActions.loadUser());
   } catch (err) {
-    yield put(authActions.loginFailed(err.response.data.msg));
-    console.log(err.response.data.msg);
+    yield put(authActions.loginFailed(err.response?.data?.msg || err.message));
+    console.log(err.response?.data?.msg || err.message);
   }
 }
 
@@ -22,18 +22,24 @@ function* loginWatch() {
 function* loadUserWork() {
   try {
     const token = localStorage.token;
+    setAuthToken(token);
+
     if (token) {
-      setAuthToken(token);
       const user = yield call(API.loadUser);
       yield put(authActions.setLoading());
       yield delay(500);
       yield put(authActions.getUser(user));
     } else {
-      yield put(authActions.loadUserFailed());
+      yield put(authActions.notLoadedYet());
     }
   } catch (err) {
-    yield put(authActions.loadUserFailed(err.response.data.msg));
-    console.log(err.response.data.msg);
+    if (err.response?.data?.msg === "Token is not valid!") {
+      yield put(authActions.notLoadedYet());
+    } else {
+      yield put(
+        authActions.loadUserFailed(err.response?.data?.msg || err.message)
+      );
+    }
   }
 }
 

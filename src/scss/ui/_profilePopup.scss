@@ -7,6 +7,15 @@
   transform: scaleY(0);
   transition: transform 0.25s ease-in-out;
   transform-origin: top;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+  border: 1px solid rgba(34, 36, 38, 0.15);
+
+  .profile-link,
+  a,
+  a:hover {
+    text-decoration: none;
+    color: #333;
+  }
 
   @include custom-media(tablet) {
     width: 250px;

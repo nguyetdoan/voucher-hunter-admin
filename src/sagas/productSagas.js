@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { all, call, put, takeEvery } from "redux-saga/effects";
 import { ADD_PRODUCT, LOAD_PRODUCT_LIST } from "../actions/actionType";
 import productActions from "../actions/productAction";
@@ -5,11 +6,10 @@ import API from "../services/api";
 
 function* loadProductWork({ payload: loadInfo }) {
   try {
-    const list = yield call(productActions.loadProduct, ...loadInfo);
-    yield call(productActions.getProductList(list));
+    const data = yield call(API.loadProduct, loadInfo);
+    yield put(productActions.getProductList(data));
   } catch (err) {
-    yield put(productActions.productErr(err.response.data.msg));
-    console.log(err.response.data.msg);
+    console.log(err);
   }
 }
 
@@ -21,9 +21,10 @@ function* addProductWork({ payload: productInfo }) {
   try {
     yield call(API.addProduct, productInfo);
     yield put(productActions.changeProduct());
+    toast("Upload Product Success!!");
   } catch (err) {
-    // yield put(productActions.productErr(err.response.data.msg));
     console.log(err);
+    toast("Upload Product Failed!!");
   }
 }
 

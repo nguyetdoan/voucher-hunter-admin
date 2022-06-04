@@ -1,8 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import authActions from "./actions/authActions";
 import Layout from "./components/layout";
+import NotFound from "./components/NotFound";
 import LoginPage from "./pages/LoginPage";
 import { adminRoute } from "./routes";
 
@@ -15,7 +18,13 @@ function App() {
   }, [dispatch]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="spinner-wrapper">
+        <div className="spinner-border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -23,15 +32,20 @@ function App() {
       <Routes>
         {user && (
           <Route path="/" element={<Layout />}>
-            {adminRoute.map((route) => (
-              <Route path={route.path} element={<route.component />} />
+            {adminRoute.map((route, index) => (
+              <Route
+                key={`route-${index}`}
+                path={route.path}
+                element={<route.component />}
+              />
             ))}
           </Route>
         )}
         <Route path="/login" element={<LoginPage />} />
         {!user && <Route path="*" element={<LoginPage />} />}
-        {user && <Route path="*" element={<>Not found</>} />}
+        {user && <Route path="*" element={<NotFound />} />}
       </Routes>
+      <ToastContainer />
     </BrowserRouter>
   );
 }

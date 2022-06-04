@@ -1,8 +1,21 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import authActions from "../../actions/authActions";
+import uiActions from "../../actions/uiActions";
 
 const ProfilePopUp = () => {
   const { isShowedProfile } = useSelector((state) => state.ui);
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(authActions.setLoading(true));
+
+    setTimeout(() => dispatch(authActions.logout()), 500);
+    navigate("/login");
+  };
 
   return (
     <div
@@ -14,19 +27,31 @@ const ProfilePopUp = () => {
           <img src="images/avt.jpeg" alt="" />
         </div>
         <div className="profile-info__txt">
-          <p>Joginder Singh</p>
-          <p>gambo943@gmail.com</p>
+          <p>{user.fullName}</p>
+          <p>{user.email}</p>
         </div>
         <div>
-          <p>View Profile</p>
+          <Link
+            onClick={() => dispatch(uiActions.toggleProfile())}
+            to="/"
+            className="profile-link"
+          >
+            View Profile
+          </Link>
         </div>
       </div>
 
       <ul className="profile-menu">
-        <li>Cursus Dashboard</li>
-        <li>Setting</li>
-        <li>Help</li>
-        <li>Sign Out</li>
+        <li onClick={() => dispatch(uiActions.toggleProfile())}>
+          <Link to="/dashboard">Cursus Dashboard</Link>
+        </li>
+        <li onClick={() => dispatch(uiActions.toggleProfile())}>
+          <Link to="/setting">Setting</Link>
+        </li>
+        <li onClick={() => dispatch(uiActions.toggleProfile())}>
+          <Link to="/help">Help</Link>
+        </li>
+        <li onClick={handleLogout}>Sign Out</li>
       </ul>
     </div>
   );

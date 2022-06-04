@@ -20,3 +20,4 @@ export const PRODUCT_CHANGE = "PRODUCT_CHANGE";
 export const DELETE_PRODUCT = "DELETE_PRODUCT";
 export const ADD_PRODUCT = "ADD_PRODUCT";
 export const PRODUCT_ERROR = "PRODUCT_ERROR";
+export const LOAD_USER_FAIL = "LOAD_USER_FAIL";

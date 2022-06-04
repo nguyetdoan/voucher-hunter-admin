@@ -7,8 +7,8 @@ import {
 
 const initialState = {
   list: [],
-  page: 1,
-  totalPage: 0,
+  page: 0,
+  totalPages: 0,
   size: 10,
   search: "",
   sort: undefined,
@@ -21,13 +21,15 @@ const initialState = {
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_PRODUCT_LIST:
-      const { list, totalPage } = action.payload;
+      const { list, totalPages, page, size } = action.payload;
       return {
         ...state,
         changed: false,
         loading: false,
         list,
-        totalPage,
+        totalPages,
+        page,
+        size,
       };
 
     case GET_PRODUCT_DETAIL:

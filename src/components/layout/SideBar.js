@@ -14,27 +14,19 @@ const SideBar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="/products">
+        <NavLink to="/vouchers">
           <div className="icon">
             <i className="bi bi-list-columns-reverse"></i>
           </div>
-          Products
+          Vouchers
         </NavLink>
       </li>
       <li>
-        <NavLink to="/create_product">
+        <NavLink to="/create_voucher">
           <div className="icon">
             <i className="bi bi-plus-circle"></i>
           </div>
-          Create New Product
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/analyics">
-          <div className="icon">
-            <i className="bi bi-graph-up"></i>
-          </div>
-          Analyics
+          Create New Voucher
         </NavLink>
       </li>
       <li>

@@ -1,6 +1,7 @@
 import { Table } from "antd";
 import { BiEdit } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { useSelector } from "react-redux";
 
 const columns = [
   {
@@ -8,15 +9,13 @@ const columns = [
     width: 100,
     dataIndex: "name",
     key: "name",
-    sorter: {
-      compare: (a, b) => a.name - b.name,
-      multiple: 3,
-    },
+    fixed: "left",
+    render: (txt) => <p>{txt}</p>,
   },
   {
     title: "Image",
     width: 120,
-    dataIndex: ["image", "url"],
+    dataIndex: ["images", "0"],
     key: "image",
     render: (src) => <img className="product-img" src={src} alt="product" />,
   },
@@ -52,24 +51,24 @@ const columns = [
   },
   {
     title: "Start",
-    dataIndex: "startDate",
+    dataIndex: "from",
     key: "4",
     width: 120,
   },
   {
     title: "End",
-    dataIndex: "endDate",
+    dataIndex: "to",
     key: "5",
     width: 120,
   },
   {
     title: "Action",
-    key: "operation",
+    key: "action",
     fixed: "right",
     width: 120,
     render: (txt) => (
       <>
-        <button className="btn" onClick={() => console.log(txt)}>
+        <button className="btn" onClick={() => console.log(txt._id)}>
           <BiEdit />
         </button>
         <button className="btn" onClick={() => console.log(txt)}>
@@ -80,30 +79,17 @@ const columns = [
   },
 ];
 
-const data = [];
-for (let i = 0; i < 100; i++) {
-  data.push({
-    key: i,
-    name: "Tien Giang",
-    price: 300,
-    discount: i * 10,
-    stock: 30,
-    image: {
-      url: "https://sanvemaybay.vn/includes/uploads/2018/09/thanh-pho-Tien-Giang-ve-dem-e1536820106695.jpg",
-    },
-    startDate: new Date("2021-5-7").toISOString(),
-    endDate: new Date().toISOString(),
-    category: Math.random() * 5 > 2 ? "Travel" : "Comestic",
-  });
-}
+const ProductTable = () => {
+  const { list } = useSelector((state) => state.product);
 
-const ProductTable = () => (
-  <Table
-    columns={columns}
-    dataSource={data}
-    scroll={{ x: 1500, y: "70vh" }}
-    pagination={{ position: ["topRight", "bottomRight"] }}
-  />
-);
+  return (
+    <Table
+      columns={columns}
+      dataSource={list}
+      scroll={{ x: 1500, y: "70vh" }}
+      pagination={false}
+    />
+  );
+};
 
 export default ProductTable;

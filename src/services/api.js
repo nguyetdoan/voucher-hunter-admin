@@ -21,7 +21,7 @@ const API = {
 
     return response.data;
   },
-  async loadProduct(page = 1, size, sort, order, search, gte, lte) {
+  async loadProduct({ page = 1, size, sort, order, search, gte, lte }) {
     const response = await axios.get(
       `${baseURL}/product?page=${page}${size ? `&size=${size}` : ""}${
         sort ? `&sort=${sort}` : ""
@@ -46,13 +46,12 @@ const API = {
     return response.data;
   },
   async addProduct(productInfo) {
-    console.log(productInfo);
     const response = await axios.post(`${baseURL}/product`, productInfo);
 
     if (response.status !== 200) {
       throw new Error(response.data.msg);
     }
-
+    console.log(response);
     return response.data;
   },
   async updateProductDetail(updateInfo) {

@@ -11,6 +11,13 @@
       padding-top: 12px;
       padding-bottom: 12px;
 
+      &:first-child p {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
       img {
         width: 80px;
         height: 80px;
@@ -70,21 +77,336 @@ table {
   width: 800px;
   margin: 30px auto;
 
-  .ant-row {
-    display: block;
-    width: 100%;
-    margin: 24px auto 0;
+  .image-preview {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 100px);
+    gap: 12px;
+
+    img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+    }
   }
 
-  .ant-form-item-control {
-    max-width: 100%;
+  .input-field {
+    margin-bottom: 28px;
+    position: relative;
+
+    .err-msg {
+      position: absolute;
+      top: 100%;
+      left: 0;
+    }
+
+    textarea:focus {
+      border-color: #333;
+    }
+
+    textarea {
+      text-indent: calc(2em - 12px);
+      font-size: 14px;
+    }
+
+    .error {
+      border-color: $primary;
+
+      + div {
+        color: $primary;
+      }
+    }
+
+    input[type="number"],
+    input[type="date"] {
+      width: 175px;
+    }
+
+    label {
+      display: block;
+    }
+
+    .loading-img {
+      width: 100px;
+      height: 100px;
+      display: grid;
+      place-items: center;
+      background-color: #f7f7f7;
+    }
+
+    .image-container {
+      position: relative;
+      padding: 4px;
+
+      &.error {
+        border: 1px solid $primary;
+      }
+
+      .delete-btn {
+        position: absolute;
+        right: -6px;
+        top: -10px;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        line-height: 20px;
+        border-radius: 2px;
+        background-color: $secondary;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $primary;
+          color: #fff;
+        }
+      }
+    }
+
+    input[type="file"] {
+      width: 100px;
+      height: 100px;
+      display: inline-block;
+      border-style: dashed;
+      position: relative;
+      cursor: pointer;
+
+      &:focus {
+        border-style: dashed;
+      }
+
+      &:hover {
+        border-color: #333;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: #fff;
+      }
+
+      &::after {
+        content: "+";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        color: #e7e7e7;
+        font-size: 40px;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      display: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
   }
 
-  .ant-form-item-label {
-    max-width: 100%;
+  label {
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    color: #333;
+  }
+
+  .input-field input {
+    padding-left: 2em;
+    padding-right: 2em;
+    height: 40px;
+    font-size: 14px;
+    font-weight: 400;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    color: #333;
+    box-shadow: inset 0px 1px 4px rgba(0, 0, 0, 0.02);
+
+    &:focus {
+      border: 1px solid #333;
+      box-shadow: none;
+      outline: none;
+    }
+  }
+
+  .submit-btn,
+  .submit-btn:hover,
+  .submit-btn:focus {
+    color: #fff;
+    width: 100px;
+    text-align: center;
+  }
+
+  .submit-btn:hover {
+    background: #000;
+    border-color: #000;
   }
 
   @include custom-media(desktop) {
     width: 90%;
+  }
+
+  .custom-select {
+    position: relative;
+    z-index: 10;
+  }
+
+  .custom-select select {
+    display: none;
+    /*hide original SELECT element:*/
+  }
+
+  .select-selected {
+    background-color: #fff;
+  }
+
+  /*style the arrow inside the select element:*/
+  .arrow-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+  }
+
+  /*style the items (options), including the selected item:*/
+  .select-items div,
+  .select-selected {
+    padding: 0.78571429em 2.1em 0.785714em 2em;
+    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    cursor: pointer;
+    user-select: none;
+    height: 40px;
+    font-size: 14px;
+    font-weight: 400;
+    border: 1px solid #e5e5e5;
+    background: #fff;
+    color: #333;
+    box-shadow: inset 0px 1px 4px rgba(0, 0, 0, 0.02);
+  }
+
+  .custom-select .select-selected:focus,
+  .custom-select .select-selected:focus-within,
+  .custom-select .select-selected:focus-visible,
+  .custom-select .select-selected.show-box {
+    border: 1px solid #333;
+    box-shadow: none;
+    outline: 0;
+  }
+
+  .custom-select .select-selected.show-box:focus {
+    border-bottom: 0;
+  }
+
+  .select-selected:not(.show-box):focus::placeholder {
+    color: #333;
+  }
+
+  .show-box:focus::placeholder {
+    color: #e5e5e5;
+  }
+
+  .select-selected.not-selected::placeholder {
+    color: #e5e5e5;
+    padding-left: 0;
+  }
+
+  div.select-selected.not-selected {
+    color: #e5e5e5;
+  }
+
+  .select-selected:not(:focus)::placeholder {
+    color: #333;
+  }
+
+  .not-selected:not(:focus)::placeholder {
+    color: #e5e5e5;
+    padding-left: 0;
+  }
+
+  .select-items div {
+    border: 0;
+  }
+
+  .select-items {
+    border: 1px solid #96c8da;
+    border-top: 0;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+    max-height: 8.01428571rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: #fff;
+    border-radius: 0 0 0.28571429rem 0.28571429rem;
+  }
+
+  @media (min-width: 768px) {
+    .select-items {
+      max-height: 10.68571429rem;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .select-items {
+      max-height: 16.02857143rem;
+    }
+  }
+
+  /*style items (options):*/
+  .select-items {
+    position: absolute;
+    background-color: #fff;
+    color: rgba(0, 0, 0, 0.95);
+    color: rgba(0, 0, 0, 0.95);
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+  }
+
+  .select-items {
+    transform: scaleY(1);
+    transform-origin: top;
+    transition: transform 0.2s linear;
+  }
+
+  /*hide the items when the select box is closed:*/
+  .select-hide {
+    transform: scaleY(0);
+  }
+
+  .select-items div:not(.disabled-select):hover,
+  .same-as-selected {
+    background: rgba(0, 0, 0, 0.03);
+    color: rgba(0, 0, 0, 0.95);
+  }
+
+  .select-items .disabled-select {
+    cursor: default;
+  }
+
+  .select-items::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  .select-items::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  .select-items::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 500px;
+  }
+
+  /* Handle on hover */
+  .select-items::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .err-msg {
+    color: $primary;
   }
 }

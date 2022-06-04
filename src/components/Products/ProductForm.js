@@ -1,148 +1,172 @@
-import { DatePicker, Form, Input, InputNumber, Upload } from "antd";
-import React from "react";
+import { Field, Form, Formik } from "formik";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import * as Yup from "yup";
 import productActions from "../../actions/productAction";
+import CustomInput from "../CustomInput/index";
+import CustomSelector from "../CustomSelector/index";
+import Upload from "../Upload";
 
-const normFile = (e) => {
-  if (Array.isArray(e)) {
-    return e;
-  }
-  return e && e.fileList;
-};
+const validationSchema = Yup.object({
+  name: Yup.string().required("Required"),
+  detail: Yup.string().required("Required"),
+  category: Yup.string().required("Required"),
+  images: Yup.array()
+    .min(1, "Please upload at least one image")
+    .required("Required"),
+  stock: Yup.number().required("Required"),
+  price: Yup.number().required("Required"),
+});
 
 const ProductForm = () => {
+  const initialValues = {
+    name: "",
+    detail: "",
+    category: "",
+    price: "",
+    stock: "",
+    discount: "",
+    from: "",
+    to: "",
+    images: [],
+  };
   const dispatch = useDispatch();
+  const [price, setPrice] = useState("");
 
-  const handleSubmit = (values) => {
-    const productInfo = {
-      ...values,
-      images: values.upload.map((item) => item.thumbUrl),
-    };
-    delete productInfo.upload;
+  const onSubmit = (values, { resetForm, setSubmitting }) => {
+    dispatch(productActions.addProduct(values));
+    resetForm();
+    window.scrollTo(0, 0);
+    setSubmitting(false);
+  };
 
-    dispatch(productActions.addProduct(productInfo));
+  const handleChangePrice = (e, setFieldValue) => {
+    const numStr = e.target.value.split(",").join("");
+
+    if (+numStr) {
+      const number = +numStr;
+      const formatPrice = new Intl.NumberFormat().format(number);
+      setPrice(formatPrice);
+      setFieldValue("price", number);
+    }
   };
 
   return (
-    <Form
-      onFinish={handleSubmit}
-      labelCol={{
-        span: 4,
-      }}
-      wrapperCol={{
-        span: 14,
-      }}
-      layout="horizontal"
-      autoComplete="off"
-      className="product-form"
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={onSubmit}
     >
-      <Form.Item
-        name="name"
-        label="Product name"
-        rules={[
-          {
-            required: true,
-            message: "Please input product name!",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name="description"
-        label="Description"
-        rules={[
-          {
-            required: true,
-            message: "Please input description",
-          },
-        ]}
-      >
-        <Input.TextArea showCount maxLength={100} />
-      </Form.Item>
-      <Form.Item
-        name="price"
-        label="Product price"
-        rules={[
-          {
-            required: true,
-            message: "Please input product price!",
-          },
-        ]}
-      >
-        <InputNumber />
-      </Form.Item>
-      <Form.Item
-        name="discount"
-        label="Discount"
-        rules={[
-          {
-            required: true,
-            message: "Please input discount!",
-          },
-        ]}
-      >
-        <InputNumber />
-      </Form.Item>
-      <Form.Item
-        name="upload"
-        label="Upload image"
-        valuePropName="fileList"
-        getValueFromEvent={normFile}
-        rules={[
-          {
-            required: true,
-            message: "Please upload an image!",
-          },
-        ]}
-      >
-        <Upload action="/upload.do" listType="picture-card">
-          + Upload
-        </Upload>
-      </Form.Item>
-      <Form.Item
-        label="Stock"
-        name="stock"
-        rules={[
-          {
-            required: true,
-            message: "Please input the amount!",
-          },
-        ]}
-      >
-        <InputNumber />
-      </Form.Item>
-      <Form.Item
-        label="Start"
-        name="dateStart"
-        rules={[
-          {
-            required: true,
-            message: "Please input start date!",
-          },
-        ]}
-      >
-        <DatePicker />
-      </Form.Item>
-      <Form.Item
-        name="dateEnd"
-        label="End"
-        rules={[
-          {
-            required: true,
-            message: "Please input end date!",
-          },
-        ]}
-      >
-        <DatePicker />
-      </Form.Item>
+      {({ values, touched, errors, setFieldValue, setTouched }) => (
+        <Form className="product-form">
+          <CustomInput
+            name="name"
+            label="Product Name"
+            required={true}
+            type="text"
+            {...{ errors, touched }}
+          />
 
-      <Form.Item label=" " className="submit-btn">
-        <button htmlType="submit" className="btn btn-primary text-white">
-          Submit
-        </button>
-      </Form.Item>
-    </Form>
+          <div className="input-field">
+            <label>Detail</label>
+            <Field name="detail">
+              {({ field, form: { touched, errors } }) => (
+                <>
+                  <textarea
+                    {...field}
+                    rows="5"
+                    columns="50"
+                    className={`form-control ${
+                      touched.detail && errors.detail ? "error" : ""
+                    }`}
+                  ></textarea>
+                  {touched.detail && errors.detail ? (
+                    <div className="err-msg">{errors.detail}</div>
+                  ) : null}
+                </>
+              )}
+            </Field>
+          </div>
+
+          <CustomSelector
+            placeholder={"Select a category"}
+            name="category"
+            label="Category"
+            setFieldValue={setFieldValue}
+            {...{ errors, touched, setTouched, values }}
+            selectOptions={["Travel", "Cook", "Technology"]}
+          />
+
+          <div className="input-field">
+            <label htmlFor="price">Price</label>
+            <Field
+              id="price"
+              name="price"
+              type="text"
+              onChange={(e) => handleChangePrice(e, setFieldValue)}
+              value={price}
+              className={`form-control ${
+                touched.price && errors.price ? "error" : ""
+              }`}
+            />
+            {touched.price && errors.price ? (
+              <div className="err-msg">{errors.price}</div>
+            ) : null}
+          </div>
+
+          <CustomInput
+            name="stock"
+            require={true}
+            type="number"
+            label="Stock"
+            {...{ errors, touched }}
+          />
+
+          <CustomInput
+            name="discount"
+            type="text"
+            require={true}
+            label="Discount"
+            {...{ errors, touched }}
+          />
+
+          <CustomInput
+            name="from"
+            type="date"
+            require={true}
+            label="From"
+            {...{ errors, touched }}
+          />
+
+          <CustomInput
+            name="to"
+            type="date"
+            require={true}
+            label="To"
+            {...{ errors, touched }}
+          />
+
+          <Field name="images">
+            {({
+              field,
+              form: { touched, errors, setFieldValue, isSubmitting },
+            }) => {
+              return (
+                <Upload
+                  {...field}
+                  require={true}
+                  {...{ errors, touched, setFieldValue, isSubmitting, values }}
+                />
+              );
+            }}
+          </Field>
+
+          <button type="submit" className="btn btn-primary submit-btn">
+            Submit
+          </button>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

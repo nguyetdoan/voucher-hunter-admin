@@ -1,11 +1,11 @@
+import "bootstrap-icons/font/bootstrap-icons.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import "./scss/app.scss";
 import { Provider } from "react-redux";
+import App from "./App";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
+import "./scss/app.scss";
 import store from "./store/index";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

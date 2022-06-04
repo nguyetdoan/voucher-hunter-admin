@@ -24,16 +24,17 @@ const Login = () => {
     const { email, password } = values;
 
     dispatch(authActions.login({ email, password }));
+    navigate("/");
   };
 
   return (
-    <div className="sign-up-bg">
+    <div className="log-in-bg">
       <div className="container text-center">
-        <div className="sign-up__container">
+        <div className="log-in__container">
           <div className="logo-container">
-            <img src="image/logo.png" alt="logo" />
+            <img src="images/logo.png" alt="logo" />
           </div>
-          <div className="sign-up-form">
+          <div className="log-in-form">
             <h2 className="title">Welcome Back</h2>
             <p>Log Into Your Account!</p>
             <Formik
@@ -96,8 +97,8 @@ const Login = () => {
             </p>
           </div>
         </div>
-        <p className="sign-footer">
-          <img src="images/sign_logo.png" alt="" />© 2022{" "}
+        <p className="log-in-footer">
+          <img src="images/login_logo.png" alt="" />© 2022{" "}
           <span className="fw-bold">Cursus</span>. All Rights Reserved.
         </p>
       </div>
