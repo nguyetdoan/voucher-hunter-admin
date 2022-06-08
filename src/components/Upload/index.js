@@ -9,9 +9,11 @@ const Upload = ({
   touched,
   errors,
   values,
+  justShow,
+  setJustShow,
 }) => {
   const [previewSources, setPreviewSources] = useState([]);
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(0);
 
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
@@ -20,15 +22,19 @@ const Upload = ({
   };
 
   useEffect(() => {
-    return () => {
-      if (!isSubmitting && values[name].length) {
-        console.log("values", values);
-      }
-    };
-  }, [isSubmitting, values, name]);
+    if (values.images.length && justShow) {
+      setPreviewSources(
+        values.images.map((url) => ({
+          url,
+          isSuccess: true,
+        }))
+      );
+      setJustShow(false);
+    }
+  }, [values, justShow, setJustShow]);
 
   const previewFile = (file) => {
-    setLoading(true);
+    setLoading((state) => state + 1);
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
@@ -51,14 +57,14 @@ const Upload = ({
       const url = response.data;
       setPreviewSources((source) => [...source, { url, isSuccess: true }]);
       setFieldValue(name, [...value, url]);
-      setLoading(false);
+      setLoading((state) => state - 1);
     } catch (err) {
       console.error(err);
       setPreviewSources((source) => [
         ...source,
         { url: base64EncodedImage, isSuccess: false },
       ]);
-      setLoading(false);
+      setLoading((state) => state - 1);
     }
   };
 
@@ -76,7 +82,7 @@ const Upload = ({
   return (
     <>
       <div className="upload-field input-field">
-        <label htmlFor="fileInput">Upload Image</label>
+        <label>Upload Image</label>
         <div className="image-preview">
           {previewSources.length > 0 &&
             previewSources.map((source, index) => (
@@ -95,13 +101,14 @@ const Upload = ({
               </div>
             ))}
 
-          {isLoading && (
-            <div className="loading-img">
-              <div className="spinner-border" role="status">
-                <span className="visually-hidden">Loading...</span>
+          {isLoading > 0 &&
+            Array.from({ length: isLoading }, () => (
+              <div className="loading-img">
+                <div className="spinner-border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
               </div>
-            </div>
-          )}
+            ))}
           <input
             id="fileInput"
             type="file"

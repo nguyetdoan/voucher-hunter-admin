@@ -7,6 +7,7 @@ import {
   LOAD_PRODUCT_LIST,
   PRODUCT_CHANGE,
   PRODUCT_ERROR,
+  SET_ON_UPDATE_FORM,
   UPDATE_PRODUCT,
 } from "./actionType";
 
@@ -62,6 +63,12 @@ const productActions = {
     return {
       type: PRODUCT_ERROR,
       payload: err,
+    };
+  },
+  setOnUpdateForm(form) {
+    return {
+      type: SET_ON_UPDATE_FORM,
+      payload: form,
     };
   },
 };

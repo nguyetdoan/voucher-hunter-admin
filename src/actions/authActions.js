@@ -1,4 +1,5 @@
 import {
+  CLEAR_ERROR,
   GET_USER,
   LOAD_USER,
   LOAD_USER_FAIL,
@@ -42,6 +43,11 @@ const authActions = {
     return {
       type: LOAD_USER_FAIL,
       payload: err,
+    };
+  },
+  clearError() {
+    return {
+      type: CLEAR_ERROR,
     };
   },
   setLoading() {

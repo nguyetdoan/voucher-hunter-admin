@@ -56,7 +56,7 @@ const API = {
   },
   async updateProductDetail(updateInfo) {
     const response = await axios.put(
-      `${baseURL}/product/${updateInfo.id}`,
+      `${baseURL}/product/${updateInfo._id}`,
       updateInfo
     );
 
@@ -66,13 +66,13 @@ const API = {
 
     return response.data;
   },
-  async deleteProductDetail(id) {
+  async deleteProduct(id) {
     const response = await axios.delete(`${baseURL}/product/${id}`);
 
     if (response.status !== 200) {
       throw new Error(response.data.msg);
     }
-
+    console.log(response);
     return response.data;
   },
 };

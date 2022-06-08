@@ -3,6 +3,7 @@ import {
   GET_PRODUCT_LIST,
   PRODUCT_CHANGE,
   PRODUCT_ERROR,
+  SET_ON_UPDATE_FORM,
 } from "../actions/actionType";
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
   productDetail: null,
   changed: false,
   loading: true,
+  onUpdateForm: null,
 };
 
 const productReducer = (state = initialState, action) => {
@@ -31,7 +33,11 @@ const productReducer = (state = initialState, action) => {
         page,
         size,
       };
-
+    case SET_ON_UPDATE_FORM:
+      return {
+        ...state,
+        onUpdateForm: action.payload,
+      };
     case GET_PRODUCT_DETAIL:
       const productDetail = action.payload;
       return {

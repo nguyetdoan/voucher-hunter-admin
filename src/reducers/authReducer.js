@@ -1,4 +1,5 @@
 import {
+  CLEAR_ERROR,
   GET_USER,
   LOAD_USER_FAIL,
   LOG_IN_FAILED,
@@ -22,7 +23,11 @@ const authReducer = (state = inititalState, action) => {
         loading: false,
         error: action.payload,
       };
-
+    case CLEAR_ERROR:
+      return {
+        ...state,
+        error: null,
+      };
     case LOG_OUT:
     case NOT_LOADED_YET:
       localStorage.removeItem("token");

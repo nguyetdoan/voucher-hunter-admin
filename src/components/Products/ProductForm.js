@@ -36,6 +36,7 @@ const ProductForm = () => {
   const onSubmit = (values, { resetForm, setSubmitting }) => {
     dispatch(productActions.addProduct(values));
     resetForm();
+    setPrice("");
     window.scrollTo(0, 0);
     setSubmitting(false);
   };

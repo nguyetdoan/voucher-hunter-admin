@@ -17,6 +17,11 @@ const ProfilePopUp = () => {
     navigate("/login");
   };
 
+  const handleClickMenu = (link) => {
+    navigate(link);
+    dispatch(uiActions.toggleProfile());
+  };
+
   return (
     <div
       className={`profile-pop-up${isShowedProfile ? " show" : ""}`}
@@ -42,15 +47,8 @@ const ProfilePopUp = () => {
       </div>
 
       <ul className="profile-menu">
-        <li onClick={() => dispatch(uiActions.toggleProfile())}>
-          <Link to="/dashboard">Cursus Dashboard</Link>
-        </li>
-        <li onClick={() => dispatch(uiActions.toggleProfile())}>
-          <Link to="/setting">Setting</Link>
-        </li>
-        <li onClick={() => dispatch(uiActions.toggleProfile())}>
-          <Link to="/help">Help</Link>
-        </li>
+        <li onClick={() => handleClickMenu("/")}>Cursus Dashboard</li>
+        <li onClick={() => handleClickMenu("/setting")}>Setting</li>
         <li onClick={handleLogout}>Sign Out</li>
       </ul>
     </div>

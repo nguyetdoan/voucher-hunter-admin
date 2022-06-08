@@ -50,7 +50,7 @@ const CustomSelector = ({
 
   return (
     <div className="custom-select">
-      <label htmlFor={name}>{label}</label>
+      <label>{label}</label>
       <Field as="select" name={name}>
         <option value="">{placeholder}</option>
         {selectOptions.map((item, i) => (

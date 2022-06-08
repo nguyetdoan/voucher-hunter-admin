@@ -4,7 +4,7 @@ import React from "react";
 const CustomInput = ({ name, label, touched, errors, type }) => {
   return (
     <div className="input-field">
-      <label htmlFor={name}>{label}</label>
+      <label>{label}</label>
       <Field
         id={name}
         name={name}

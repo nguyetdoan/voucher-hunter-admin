@@ -1,6 +1,6 @@
 import { Field, Form, Formik } from "formik";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import authActions from "../actions/authActions";
@@ -19,10 +19,13 @@ const initialValues = {
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { error } = useSelector((state) => state.auth);
 
   const handleSubmit = (values) => {
+    if (error) {
+      dispatch(authActions.clearError());
+    }
     const { email, password } = values;
-
     dispatch(authActions.login({ email, password }));
     navigate("/");
   };
@@ -37,6 +40,7 @@ const Login = () => {
           <div className="log-in-form">
             <h2 className="title">Welcome Back</h2>
             <p>Log Into Your Account!</p>
+            {error && <p className="err-bk">{error}</p>}
             <Formik
               initialValues={initialValues}
               onSubmit={handleSubmit}
@@ -83,7 +87,7 @@ const Login = () => {
                     className={`btn text-center w-100 submit-btn`}
                     type="submit"
                   >
-                    Log in
+                    Login
                   </button>
                 </Form>
               )}
