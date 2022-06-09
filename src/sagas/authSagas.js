@@ -6,9 +6,13 @@ import { setAuthToken } from "../utils/setAuthToken";
 
 function* loginWork({ payload: userInfo }) {
   try {
-    const token = yield call(API.login, userInfo);
+    const { token, user } = yield call(API.login, userInfo);
     localStorage.token = token;
-    yield put(authActions.loadUser());
+    setAuthToken(token);
+    yield put(authActions.setLoading());
+    yield delay(500);
+    delete user.password;
+    yield put(authActions.getUser(user));
   } catch (err) {
     yield put(authActions.loginFailed(err.response?.data?.msg || err.message));
     console.log(err.response?.data?.msg || err.message);
@@ -26,8 +30,7 @@ function* loadUserWork() {
 
     if (token) {
       const user = yield call(API.loadUser);
-      yield put(authActions.setLoading());
-      yield delay(500);
+      delete user.password;
       yield put(authActions.getUser(user));
     } else {
       yield put(authActions.notLoadedYet());
